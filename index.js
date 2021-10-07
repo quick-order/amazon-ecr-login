@@ -63,11 +63,13 @@ async function run() {
         throw new Error('Could not login: ' + doLoginStderr);
       }
 
-      const secretPrefix = replaceSpecialCharacters(registryUri)
-      core.setSecret(creds[0])
-      core.setSecret(creds[1])
-      core.setOutput(`${secretPrefix}_docker_username`, creds[0]);
-      core.setOutput(`${secretPrefix}_docker_password`, creds[1]);
+      const secretSuffix = replaceSpecialCharacters(registryUri)
+
+      core.debug(`User ${creds[0]}`);
+      core.debug(`Pass ${creds[1]}`);
+
+      core.setOutput(`username`, creds[0]);
+      core.setOutput(`password`, creds[1]);
 
       registryUriState.push(registryUri);
     }
